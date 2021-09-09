@@ -12,13 +12,14 @@ const Context = createContext()
 
 function ContextProvider({ children }) {
   const [contacts, setContacts] = useState([])
-  const [name, setName] = useState('')
+  const [name, setName] = useState('');
+
   // Randomize the quizes data
   async function getContacts() {
     const fetchContacts = await fetch(endpoint)
-    const response = await fetchContacts.json()
-    const sortedName = response.sort((a, b) => a.last_name - b.last_name)
-    setContacts(sortedName)
+    const response = await fetchContacts.json();
+    const newContacts = response.map(res => ({...res, isChecked: false}));
+    setContacts(newContacts)
   }
 
   useEffect(() => {
@@ -38,8 +39,22 @@ function ContextProvider({ children }) {
     }
   }, [name])
 
-  console.log(contacts)
+function toogleCheckbox(id) {
+    const toogleCheckedItem = contacts.map(contact => {
+      if(contact.id === id) {
+        return {
+          ...contact,
+          isChecked: !contact.isChecked
+        }
+      }else {
+        return contact
+      }
+    })
+  setContacts(toogleCheckedItem);
+  }
 
+
+  
   function searchContactByName(e) {
     setName(e.target.value)
   }
@@ -50,6 +65,7 @@ function ContextProvider({ children }) {
         contacts,
         name,
         searchContactByName,
+        toogleCheckbox,
       }}>
       {children}
     </Context.Provider>

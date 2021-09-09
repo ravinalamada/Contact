@@ -3,31 +3,45 @@ import { Context } from '../GLobalContext'
 import styled from 'style-components'
 
 export default function List() {
-  const { contacts } = useContext(Context)
+  const { contacts, toogleCheckbox } = useContext(Context)
+  let arr = []
+  
+  contacts.some(contact => {
+      if(contact.isChecked) {
+        arr.push(contact)
+        console.log(arr);
+      }else {
+        return null
+      }
+    })  
 
+
+ const sortedContacts = contacts.sort((a, b) => a.last_name.localeCompare(b.last_name))
+ 
   return (
     <ul>
-      {contacts?.map((item) => (
-        <li key={item.id}>
+      {
+        sortedContacts.map((contact) => (
+        <li key={contact.id}>
           <label htmlFor='checkbox'>
             <div>
-              {item.avatar ? (
-                <img src={item.avatar} alt='avatar' />
+              {contact.avatar ? (
+                <img src={contact.avatar} alt='avatar' />
               ) : (
                 <div className='avatar'>
-                  {item.first_name.charAt(0)} {item.last_name.charAt(0)}
+                  {contact.first_name.charAt(0)} {contact.last_name.charAt(0)}
                 </div>
               )}
             </div>
             <div>
               <div className='names'>
-                <span>{item.first_name}</span>
-                <span>{item.last_name}</span>
+                <b>{contact.first_name}</b>
+                <b>{contact.last_name}</b>
               </div>
-              <span>{item.email}</span>
+              <span>{contact.email}</span>
             </div>
           </label>
-          <input type='checkbox' id='checkbox' />
+          <input type='checkbox'  id='checkbox' onClick={() => toogleCheckbox(contact.id)} />
         </li>
       ))}
     </ul>

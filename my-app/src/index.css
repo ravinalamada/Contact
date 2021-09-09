@@ -23,11 +23,11 @@ label {
   align-items: center;
 }
 
-span {
+b {
   text-align: left;
 }
 
-span:first-child {
+b:first-child {
   margin-right: 16px;
 }
 
