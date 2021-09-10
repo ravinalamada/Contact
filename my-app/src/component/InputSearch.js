@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Context } from '../GLobalContext'
+import { Context } from '../gLobalContext'
 
 export default function InputSearch() {
   const { name, searchContactByName } = useContext(Context)

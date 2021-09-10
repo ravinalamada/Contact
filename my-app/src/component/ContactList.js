@@ -1,20 +1,12 @@
 import React, { useContext } from 'react'
-import { Context } from '../GLobalContext'
-import styled from 'style-components'
+import { Context } from '../gLobalContext'
 
 export default function List() {
   const { contacts, toogleCheckbox } = useContext(Context)
-  let arr = []
   
-  contacts.some(contact => {
-      if(contact.isChecked) {
-        arr.push(contact)
-        console.log(arr);
-      }else {
-        return null
-      }
-    })  
+  const some = contacts.some(contact => contact.isChecked)  
 
+  console.log(some && contacts.filter(contact => contact.isChecked));
 
  const sortedContacts = contacts.sort((a, b) => a.last_name.localeCompare(b.last_name))
  
@@ -33,7 +25,7 @@ export default function List() {
                 </div>
               )}
             </div>
-            <div>
+            <div className="wrapper">
               <div className='names'>
                 <b>{contact.first_name}</b>
                 <b>{contact.last_name}</b>

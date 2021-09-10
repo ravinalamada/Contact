@@ -2,8 +2,6 @@ import React, {
   useState,
   createContext,
   useEffect,
-  useRef,
-  useContext,
 } from 'react'
 const endpoint =
   'https://teacode-recruitment-challenge.s3.eu-central-1.amazonaws.com/users.json'
